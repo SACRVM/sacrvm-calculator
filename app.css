@@ -1,0 +1,146 @@
+/* Scoped to the app's own element — never :root, or the app would repaint
+   the desktop around it. Tokens only; the host's theme flows in. */
+
+app-calculator {
+    /* Per-app accent: violet, so the calculator does not read as "the kit
+       demo in default blue". ui.css derives the accent family on :root /
+       .sac-app-view / sac-window — all of them ABOVE this element — so the
+       seed alone would only half re-theme. Re-derive here with the kit's own
+       formulas; no raw colors beyond the one seed. */
+    --accent:        #7c3aed;
+    --accent-strong: color-mix(in oklab, var(--accent) 82%, var(--sink));
+    --accent-fill:   color-mix(in oklab, var(--accent) 91%, var(--sink));
+    --accent-tint:   color-mix(in srgb, var(--accent) 16%, transparent);
+    --accent-glow:   color-mix(in srgb, var(--accent) 30%, transparent);
+    --accent-text:   color-mix(in oklab, var(--accent) 90%, var(--lift));
+
+    display: flex;
+    flex-direction: column;
+    gap: 0.7rem;
+    height: 100%;
+    min-height: 320px;
+    outline: none;
+}
+
+/* --accent-text is the one accent derivation that flips direction with the
+   theme (ui.css re-solves it toward --sink on light ground). */
+:root[data-theme="light"] app-calculator {
+    --accent-text: color-mix(in oklab, var(--accent) 91%, var(--sink));
+}
+@media (prefers-color-scheme: light) {
+    :root[data-theme="auto"] app-calculator {
+        --accent-text: color-mix(in oklab, var(--accent) 91%, var(--sink));
+    }
+}
+
+app-calculator:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 3px;
+    border-radius: var(--radius-l);
+}
+
+/* ----------------------------------------------------------------- display */
+app-calculator .display {
+    background: var(--field);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-l);
+    padding: 0.55rem 0.75rem 0.65rem;
+    text-align: right;
+    overflow: hidden;
+}
+
+app-calculator .pending {
+    min-height: 1.15em;
+    font-size: 0.75rem;
+    line-height: 1.15;
+    color: var(--text-muted);
+    font-variant-numeric: tabular-nums;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+app-calculator .value {
+    display: block;
+    font-family: 'Outfit', sans-serif;
+    font-weight: 700;
+    font-size: 2.1rem;
+    line-height: 1.2;
+    color: var(--text);
+    font-variant-numeric: tabular-nums;
+    white-space: nowrap;
+    overflow: hidden;
+}
+app-calculator .value.shrink-1 { font-size: 1.55rem; }
+app-calculator .value.shrink-2 { font-size: 1.1rem; }
+
+app-calculator .display.is-error .value,
+app-calculator .display.is-error .pending { color: var(--danger-text); }
+
+/* ------------------------------------------------------------------ keypad */
+app-calculator .pad {
+    flex: 1;
+    min-height: 0;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-auto-rows: 1fr;
+    gap: 6px;
+}
+
+/* .btn from ui.css carries the shape, hover and primary variant; a keypad
+   key only needs bigger, non-uppercase glyphs. */
+app-calculator .key {
+    padding: 0;
+    font-size: 1.15rem;
+    font-weight: 600;
+    text-transform: none;
+    letter-spacing: normal;
+    line-height: 1;
+    user-select: none;
+}
+
+app-calculator .key.fn {
+    background: color-mix(in srgb, var(--fg) 10%, transparent);
+    color: var(--text-muted);
+    font-size: 1rem;
+}
+
+app-calculator .key.op {
+    background: var(--accent-tint);
+    border-color: transparent;
+    color: var(--accent-text);
+    font-size: 1.35rem;
+}
+app-calculator .key.op:hover:not(:disabled) {
+    background: color-mix(in srgb, var(--accent) 26%, transparent);
+    border-color: transparent;
+}
+
+/* The armed operator — the one waiting for its right-hand operand. */
+app-calculator .key.op.is-armed {
+    background: var(--accent-fill);
+    color: var(--on-accent);
+}
+
+app-calculator .key.eq { font-size: 1.35rem; }
+
+/* Keyboard presses have no :active, so they get a short highlight instead. */
+app-calculator .key.is-pressed {
+    background: var(--hover-strong);
+    transform: scale(0.96);
+}
+app-calculator .key.op.is-pressed,
+app-calculator .key.op.is-armed.is-pressed,
+app-calculator .key.eq.is-pressed {
+    background: var(--accent-strong);
+    color: var(--on-accent);
+}
+
+app-calculator .key:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 1px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    app-calculator .key.is-pressed { transform: none; }
+}
