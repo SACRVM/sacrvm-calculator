@@ -3,16 +3,9 @@
 
 app-calculator {
     /* Per-app accent: violet, so the calculator does not read as "the kit
-       demo in default blue". ui.css derives the accent family on :root /
-       .sac-app-view / sac-window — all of them ABOVE this element — so the
-       seed alone would only half re-theme. Re-derive here with the kit's own
-       formulas; no raw colors beyond the one seed. */
-    --accent:        #7c3aed;
-    --accent-strong: color-mix(in oklab, var(--accent) 82%, var(--sink));
-    --accent-fill:   color-mix(in oklab, var(--accent) 91%, var(--sink));
-    --accent-tint:   color-mix(in srgb, var(--accent) 16%, transparent);
-    --accent-glow:   color-mix(in srgb, var(--accent) 30%, transparent);
-    --accent-text:   color-mix(in oklab, var(--accent) 90%, var(--lift));
+       demo in default blue". One seed is enough — the kit re-derives the
+       accent family on every app element, per theme. */
+    --accent: #7c3aed;
 
     display: flex;
     flex-direction: column;
@@ -20,17 +13,6 @@ app-calculator {
     height: 100%;
     min-height: 320px;
     outline: none;
-}
-
-/* --accent-text is the one accent derivation that flips direction with the
-   theme (ui.css re-solves it toward --sink on light ground). */
-:root[data-theme="light"] app-calculator {
-    --accent-text: color-mix(in oklab, var(--accent) 91%, var(--sink));
-}
-@media (prefers-color-scheme: light) {
-    :root[data-theme="auto"] app-calculator {
-        --accent-text: color-mix(in oklab, var(--accent) 91%, var(--sink));
-    }
 }
 
 app-calculator:focus-visible {
