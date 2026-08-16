@@ -3,3 +3,11 @@ node_modules/
 Thumbs.db
 *.stackdump
 .claude/settings.local.json
+
+# Firepit + Claude Code — shared config versioned, runtime/personal local
+.firepit/inbox/
+.firepit/runs/
+.firepit/knowledge.db*
+!.firepit/config.json
+.claude/*.lock
+.claude/agent-memory/
