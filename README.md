@@ -26,7 +26,7 @@ Copy the folder next to your shell and register the manifest:
 sac.apps.register({
     id:          "calculator",
     name:        "Calculator",
-    icon:        "note",
+    icon:        "calculator",
     description: "A four-function calculator with percent, sign toggle and full keyboard support.",
     kind:        "window",
     tag:         "app-calculator",

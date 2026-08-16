@@ -1,7 +1,7 @@
 {
     "id": "calculator",
     "name": "Calculator",
-    "icon": "note",
+    "icon": "calculator",
     "description": "A four-function calculator with percent, sign toggle and full keyboard support.",
     "kind": "window",
     "tag": "app-calculator",
