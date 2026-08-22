@@ -7,7 +7,7 @@
     "kind": "window",
     "tag": "app-calculator",
     "entry": "app.js",
-    "version": "1.0.1",
+    "version": "1.0.2",
     "width": "320px",
     "height": "500px"
 }

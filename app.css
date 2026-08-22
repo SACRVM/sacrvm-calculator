@@ -1,12 +1,11 @@
 /* Scoped to the app's own element — never :root, or the app would repaint
-   the desktop around it. Tokens only; the host's theme flows in. */
+   the desktop around it. Tokens only; the host's theme flows in.
+
+   No --accent here either: the identity lives in app.json, and the HOST
+   seeds it onto the surface it grants (a rule here would overrule the
+   desktop owner's recolor). Standalone, index.html seeds the same color. */
 
 app-calculator {
-    /* Per-app accent: violet, so the calculator does not read as "the kit
-       demo in default blue". One seed is enough — the kit re-derives the
-       accent family on every app element, per theme. */
-    --accent: #7c3aed;
-
     display: flex;
     flex-direction: column;
     gap: 0.7rem;

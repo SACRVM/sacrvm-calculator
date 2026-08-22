@@ -28,6 +28,9 @@
 
     <style>
         /* Harness only — not part of the app. */
+        /* The app's identity, as a desktop would seed it from app.json —
+           this page never loads on a host, so :root is safely our own. */
+        :root { --accent: #7c3aed; }
         body { padding: 2rem; }
         .frame {
             max-width: 320px;
