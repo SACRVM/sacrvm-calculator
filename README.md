@@ -14,9 +14,9 @@ grouped in thousands and shrinking instead of overflowing.
 npx serve .        # http://localhost:3000 — then F5 to develop
 ```
 
-`index.html` is the harness: the app alone, no desktop. It borrows the kit
-from `sacrvm.github.io/sacrvm-appkit` — swap those two URLs for a local path
-if you keep a copy of the kit.
+`index.html` is the harness: the app alone, no desktop. It loads the repo's
+own vendored copy of the kit (`kit/`, dropped in verbatim from an appkit
+release — `kit/VERSION` says which one), so it runs offline, no CDN.
 
 ## Install it on a desktop
 

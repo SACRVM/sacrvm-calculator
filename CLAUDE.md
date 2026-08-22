@@ -6,16 +6,21 @@ app contract, so it follows that contract exactly — read `README.md` first.
 
 **One repo, one app.** The repo IS the app: `app.json` (the manifest a desktop
 reads), `app.js` (one custom element, one classic script, guarded define),
-`app.css`, and `index.html` as a standalone harness. Nothing else ships.
+`app.css`, `index.html` as a standalone harness, and the vendored `kit/`.
+Nothing else ships.
 
 **No build step, ever.** Vanilla custom elements, plain CSS, `npx serve .` and
 F5 — no node_modules, no bundler, no TypeScript.
 
-**The kit is not vendored here**: `index.html` loads it from the appkit's Pages.
-Use only the kit's documented API and its tokens — no raw colours, `--accent`
-seeded on the app element, everything else derived from it. GitHub Pages serves
-this repo, and a desktop installs the app by reading `app.json` from that
-origin: whatever is committed here is what people install.
+**The kit is vendored, verbatim** (autark — no CDN, decided 2026-08-22): `kit/`
+is dropped in from an appkit release ZIP unchanged, `kit/VERSION` says which
+one, and upgrading is delete-and-unzip — never edit anything under `kit/`.
+`index.html` loads it locally. Use only the kit's documented API and its tokens
+— no raw colours, `--accent` seeded on the app element, everything else derived
+from it. GitHub Pages serves this repo, and a desktop installs the app by
+reading `app.json` from that origin: whatever is committed here is what people
+install. On a desktop the host's own kit is live, not this copy (see the
+appkit's `CONSUMING.md`) — keep both on the same version.
 
 ## Firepit inbox
 

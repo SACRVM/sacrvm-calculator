@@ -3,12 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Calculator</title>
+    <title>My Dialog App</title>
 
-    <!-- The harness: the app alone, no desktop, F5 to develop.
-         The kit is the repo's own vendored copy (autark — no CDN); kit/VERSION
-         says which release it is. On a desktop the host's kit is live instead,
-         so keep the two on the same version. -->
+    <!-- The harness: your app alone, no desktop, F5 to develop.
+         Vendored and autark: your app repo keeps its OWN copy of kit/ (the
+         primary model) — no CDN, works fully offline, and you upgrade when you
+         choose. When a real desktop hosts you instead, IT provides the kit and
+         you drop these two lines. -->
     <link rel="stylesheet" href="kit/css/ui.css">
     <script defer src="kit/js/all.js"></script>
 
@@ -30,8 +31,8 @@
         /* Harness only — not part of the app. */
         body { padding: 2rem; }
         .frame {
-            max-width: 320px;
-            height: 440px;
+            max-width: 420px;
+            min-height: 360px;
             padding: 1rem;
             display: flex;
             background: var(--panel);
@@ -44,6 +45,6 @@
 <body>
     <!-- Roughly the box a <sac-window> would give it on a desktop. With no
          host calling mount(), sac.app.Element mounts the app itself. -->
-    <div class="frame"><app-calculator></app-calculator></div>
+    <div class="frame"><app-my-dialog-app></app-my-dialog-app></div>
 </body>
 </html>
