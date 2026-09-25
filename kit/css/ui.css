@@ -130,6 +130,13 @@
     --icon-btn-size: 26px;
     --icon-btn-icon: 14px;
 
+    /* Tool button — ONE measure for <sac-toolbox>'s tools and the light-DOM
+       .icon-btn.tool beside them (a selection-actions row under a tool box),
+       so the two can never drift. 18/32 is the same ~56% ratio. Grows to
+       44px under a coarse pointer (§15). */
+    --tool-btn-size: 32px;
+    --tool-btn-icon: 18px;
+
     /* Caption / eyebrow type — the ONE shared shape for uppercase section
        titles (sac-section) and lone light-DOM captions (.sac-caption), so the
        two can never drift. Colour is deliberately NOT here: it is per role —
@@ -209,6 +216,16 @@ sac-window {
     --border-strong: color-mix(in srgb, var(--fg) 16%, transparent);
     --hover:         color-mix(in srgb, var(--fg) 8%, transparent);   /* hover wash        */
     --hover-strong:  color-mix(in srgb, var(--fg) 14%, transparent);  /* active/press wash */
+
+    /* Transparency checker. --checker is the translucent square a CSS
+       checkerboard lays over whatever surface it sits on (the .checker
+       utility, color wells, swatches). --checker-a/-b are an OPAQUE pair for
+       canvases, which cannot composite over the page (sac-pixel-canvas).
+       --pixel-grid is the hairline between enlarged pixels. */
+    --checker:    color-mix(in srgb, var(--fg) 10%, transparent);
+    --checker-a:  color-mix(in srgb, var(--fg) 5%, var(--bg));
+    --checker-b:  color-mix(in srgb, var(--fg) 12%, var(--bg));
+    --pixel-grid: color-mix(in srgb, var(--fg) 9%, transparent);
 
     /* Accent derivations — follow --accent automatically, so the per-app
        accent override re-themes these too. */
@@ -682,6 +699,19 @@ a.nav-icon-btn { text-decoration: none; }
 .icon-btn.danger:hover:not(:disabled) { color: var(--danger-text); }
 .icon-btn:disabled { opacity: 0.3; cursor: default; }
 .icon-btn[hidden] { display: none; }
+/* The tool-sized variant: <sac-toolbox>'s measure and states, for action
+   buttons that sit next to tools. It re-points the icon-btn tokens, so the
+   touch halo below computes from the right box too. */
+.icon-btn.tool {
+    --icon-btn-size: var(--tool-btn-size);
+    --icon-btn-icon: var(--tool-btn-icon);
+    color: var(--text-muted);
+}
+.icon-btn.tool.active,
+.icon-btn.tool[aria-pressed="true"] {
+    background: var(--accent-fill);
+    color: var(--on-accent);
+}
 .icon-btn svg {
     width: var(--icon-size);
     height: var(--icon-size);
@@ -806,6 +836,19 @@ a.nav-icon-btn { text-decoration: none; }
 @keyframes skeleton-sweep {
     from { transform: translateX(-100%); }
     to   { transform: translateX(100%); }
+}
+
+/* Transparency checker — any surface that shows "nothing here" behind
+   pixels (a preview canvas, an alpha well). Token squares over whatever
+   ground the element has; --checker-size sets the square (default 8px).
+   Pair with image-rendering: pixelated on the canvas/img it backs. */
+.checker {
+    --checker-size: 8px;
+    background-image:
+        linear-gradient(45deg, var(--checker) 25%, transparent 25%, transparent 75%, var(--checker) 75%),
+        linear-gradient(45deg, var(--checker) 25%, transparent 25%, transparent 75%, var(--checker) 75%);
+    background-size: var(--checker-size) var(--checker-size);
+    background-position: 0 0, calc(var(--checker-size) / 2) calc(var(--checker-size) / 2);
 }
 
 /* --------------------------------------------------------------------------
@@ -1369,6 +1412,7 @@ canvas {
 }
 
 @media (pointer: coarse) {
+    :root { --tool-btn-size: 44px; }
     .btn { min-height: 44px; }
     /* In a toolbar/ribbon the button keeps its 32px look — a 44px fill
        would crowd the 50px ribbon — and an invisible halo takes the hit
@@ -1431,7 +1475,9 @@ canvas {
         left: 0;
         width: var(--drawer-width);
         height: auto;   /* beats .sidebar.fill: top + bottom size the drawer */
-        z-index: 10000;
+        /* Above every floating window (10000–18999) and the open nav
+           (19000), under dialogs (20000). */
+        z-index: 19001;
         padding-left: calc(0.75rem + env(safe-area-inset-left, 0px));
         padding-bottom: calc(0.75rem + env(safe-area-inset-bottom, 0px));
         translate: -105% 0;

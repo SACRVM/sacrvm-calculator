@@ -324,13 +324,12 @@ class SacColorField extends HTMLElement {
                 }
                 .well:disabled { cursor: not-allowed; }
 
-                /* Transparency checker — token-derived squares, so it reads
+                /* Transparency checker — the --checker token, so it reads
                    correctly on light and dark ground alike. The fill sits on
                    top and simply hides it when the color is opaque. */
                 .checker {
                     position: absolute;
                     inset: 0;
-                    --checker: color-mix(in srgb, var(--fg) 10%, transparent);
                     background-image:
                         linear-gradient(45deg, var(--checker) 25%, transparent 25%, transparent 75%, var(--checker) 75%),
                         linear-gradient(45deg, var(--checker) 25%, transparent 25%, transparent 75%, var(--checker) 75%);

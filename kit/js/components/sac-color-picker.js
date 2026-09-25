@@ -58,7 +58,7 @@
  *     the only raw colors in the file, each marked, all carried by private
  *     custom properties (--h, --c, --ca) that JS updates in place. Every piece
  *     of chrome around them is tokens.
- *   - The transparency checker is derived from --fg, so it adapts to light and
+ *   - The transparency checker is the --checker token, so it adapts to light and
  *     dark instead of being a baked-in gray.
  *   - Whatever the user is currently typing in is never overwritten by a sync
  *     (the guard is shadowRoot.activeElement), so a half-typed hex survives a
@@ -492,9 +492,6 @@
                 <style>
                     :host {
                         --picker-width: 240px;
-                        /* Transparency checker, derived so it adapts to any
-                           theme instead of being a baked-in gray. */
-                        --checker: color-mix(in srgb, var(--fg) 10%, transparent);
                         display: inline-block;
                         width: var(--picker-width);
                         max-width: 100%;          /* shrink before the page scrolls */
