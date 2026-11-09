@@ -9,8 +9,9 @@ reads), `app.js` (one custom element, one classic script, guarded define),
 `app.css`, `index.html` as a standalone harness, and the vendored `kit/`.
 Nothing else ships.
 
-**No build step, ever.** Vanilla custom elements, plain CSS, `npx serve .` and
-F5 — no node_modules, no bundler, no TypeScript.
+**No build step, ever.** Vanilla custom elements, plain CSS,
+`python3 -m http.server 3310` (the *Run site* command) and F5 — no
+node_modules, no bundler, no TypeScript.
 
 **The kit is vendored, verbatim** (autark — no CDN, decided 2026-08-22): `kit/`
 is dropped in from an appkit release ZIP unchanged, `kit/VERSION` says which

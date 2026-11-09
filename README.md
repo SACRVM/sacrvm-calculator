@@ -11,8 +11,10 @@ grouped in thousands and shrinking instead of overflowing.
 ## Run it
 
 ```bash
-npx serve .        # http://localhost:3000 — then F5 to develop
+python3 -m http.server 3310    # http://localhost:3310 — then F5 to develop
 ```
+
+Any static server works (`npx serve .` too); there is nothing to build.
 
 `index.html` is the harness: the app alone, no desktop. It loads the repo's
 own vendored copy of the kit (`kit/`, dropped in verbatim from an appkit
