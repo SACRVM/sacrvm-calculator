@@ -105,10 +105,13 @@ app-calculator .key.op.is-armed {
 
 app-calculator .key.eq { font-size: 1.35rem; }
 
-/* Keyboard presses have no :active, so they get a short highlight instead. */
+/* A pointer press is the kit's own .btn:active (scale 0.97, fast in).
+   Keyboard presses have no :active, so they get the same give plus a
+   short highlight, since no hover shows under them. */
 app-calculator .key.is-pressed {
     background: var(--hover-strong);
-    transform: scale(0.96);
+    transform: scale(0.97);
+    transition-duration: 0.1s;
 }
 app-calculator .key.op.is-pressed,
 app-calculator .key.op.is-armed.is-pressed,

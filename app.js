@@ -124,12 +124,16 @@
                         data-key="${action}" aria-label="${name || label}">${label}</button>`
             ).join("");
 
+            // data-no-long-press: the keys have no menu, so a key held on
+            // touch stays a key press instead of becoming the kit's
+            // long-press right-click (which a host's suppressed browser
+            // menu would turn into a swallowed tap).
             this.innerHTML = `
                 <div class="display">
                     <div class="pending" aria-hidden="true">&nbsp;</div>
                     <output class="value" aria-live="polite">0</output>
                 </div>
-                <div class="pad">${keys}</div>
+                <div class="pad" data-no-long-press>${keys}</div>
             `;
 
             this.display = this.querySelector(".display");
